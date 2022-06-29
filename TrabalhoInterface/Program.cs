@@ -36,7 +36,7 @@ namespace TrabalhoInterface
             do
             {
 
-                Console.WriteLine("1 - Menu Cadastro 2 - Menu Atualizar 3 - Menu Remover 0 - Finalizar o programa");
+                Console.WriteLine("1 - Menu Cadastro 2 - Menu Atualizar 3 - Menu Remover 4 - Listar Produtos 0 - Finalizar o programa");
                 Console.Write("Opcão : ");
                 opcao = Convert.ToInt32(Console.ReadLine());
                 Console.Clear();
@@ -48,6 +48,7 @@ namespace TrabalhoInterface
                         {
 
                             MenuCadastro(caminhao, motorista, viagem);
+                       
                         }
                         break;
 
@@ -64,12 +65,18 @@ namespace TrabalhoInterface
 
                             MenuRemover(caminhao, motorista, viagem);
 
+                        }
+                        break;
+
+                    case 4:
+                        {
+
+                            MenuListar(caminhao, motorista, viagem);
 
                         }
                         break;
                     case 0:
                         {
-
                             Console.ReadKey();
                             break;
                         }
@@ -101,18 +108,31 @@ namespace TrabalhoInterface
                         break;
                     case 2:
                         {
+
                             CadastrarMotorista(motorista);
+                       
                         }
                         break;
                     case 3:
                         {
+
                             CadastrarViagem(viagem, motorista, caminhao);
+                        
+                        }
+                        break;
+
+                    case 4:
+                        {
+
+                            MenuPrincipal(caminhao, motorista, viagem);
+
                         }
                         break;
                     case 0:
                         {
 
                             MenuCadastro(caminhao, motorista, viagem);
+                      
                         }
                         break;
                 }
@@ -127,7 +147,7 @@ namespace TrabalhoInterface
             do
             {
 
-                Console.WriteLine("1 - Atualizar Motora 2 - Atualizar Caminhao 3 - Atualizar Viagem 0 - Finalizar o programa");
+                Console.WriteLine("1 - Atualizar Motora 2 - Atualizar Caminhao 3 - Atualizar Viagem 4 - Menu Principal 0 - Finalizar o programa");
                 Console.Write("Opcão : ");
                 opcao = Convert.ToInt32(Console.ReadLine());
                 Console.Clear();
@@ -137,7 +157,8 @@ namespace TrabalhoInterface
 
                     case 1:
                         {
-                            AtualizarMotorista(motorista);
+
+                            AtualizarMotorista(motorista, viagem, caminhao);
 
                         }
                         break;
@@ -152,17 +173,29 @@ namespace TrabalhoInterface
 
                     case 3:
                         {
+
                             AtualizarViagem(viagem, motorista, caminhao);
 
                         }
                         break;
+
+                    case 4:
+                        {
+
+                            MenuPrincipal(caminhao, motorista, viagem);
+
+                        }
+                        break;
+                        
                     case 0:
                         {
 
                             Console.ReadKey();
-                            break;
+                            
                         }
+                        break;
                 }
+                
 
             } while (opcao == 0);
 
@@ -178,8 +211,8 @@ namespace TrabalhoInterface
             do
             {
 
-                Console.WriteLine("1 - Remover Motorista 2 - Remover Caminhao 3 - Remover Viagem 0 - Finalizar o programa");
-                Console.Write("Opcão : ");
+                Console.WriteLine("1 - Remover Motorista 2 - Remover Caminhao 3 - Remover Viagem 4 - Retornar o Menu Principal 0 - Finalizar o programa");
+                Console.Write("Opcão : "); 
                 opcao = Convert.ToInt32(Console.ReadLine());
                 Console.Clear();
 
@@ -189,7 +222,7 @@ namespace TrabalhoInterface
                     case 1:
                         {
 
-                            RemoverMotorista(motorista);
+                            RemoverMotorista(viagem, motorista, caminhao);
                         }
                         break;
 
@@ -208,6 +241,14 @@ namespace TrabalhoInterface
 
                         }
                         break;
+
+                    case 4:
+                        {
+
+                            MenuPrincipal(caminhao, motorista, viagem);
+
+                        }
+                        break;
                     case 0:
                         {
 
@@ -217,6 +258,70 @@ namespace TrabalhoInterface
                 }
 
             } while (opcao == 0);
+
+        }
+        static void MenuListar(List<Caminhao> caminhao, List<Motorista> motorista, List<Viagem> viagem)
+        {
+
+
+            int opcao;
+
+            do
+            {
+
+                Console.WriteLine("1 - Listar Motora 2 - Listar Caminhao 3 - Listar Viagem 4 - Retornar p Menu Principal 0 - Finalizar o programa");
+                Console.Write("Opcão : ");
+                opcao = Convert.ToInt32(Console.ReadLine());
+                Console.Clear();
+
+                switch (opcao)
+                {
+
+                    case 1:
+                        {
+                            motorista.ForEach(Console.WriteLine);
+                            
+                        }
+                        break;
+
+                    case 2:
+                        {
+
+                           caminhao.ForEach(Console.WriteLine);
+
+                        }
+                        break;
+
+                    case 3:
+                        {
+
+                            viagem.ForEach(Console.WriteLine);
+
+                        }
+                        break;
+
+                    case 4:
+                        {
+
+                            MenuPrincipal(caminhao, motorista, viagem);
+
+                        }
+                        break;
+
+                    case 0:
+                        {
+
+                            Console.ReadKey();
+                            break;
+                        }
+                }
+
+            } while (opcao == 0);
+
+
+
+
+
 
         }
         private static void CadastrarCaminhao(List<Caminhao> caminhao)
@@ -313,7 +418,7 @@ namespace TrabalhoInterface
 
         }
 
-        public static Motorista AtualizarMotorista(List<Motorista> motorista)
+        public static Motorista AtualizarMotorista(List<Motorista> motorista, List<Viagem> viagem, List<Caminhao> caminhao)
         {
             Console.WriteLine("Digite o ID do Motorista que deseja atualizar");
             int idAux = Convert.ToInt32(Console.ReadLine());
@@ -331,9 +436,8 @@ namespace TrabalhoInterface
                 motoristaAtualizado.Endereco = endereco;
 
                 Console.WriteLine("Motorista atualizando com sucesso.");
-                Console.WriteLine("Aperte qualquer tecla para continuar");
-                Console.ReadKey();
-                Console.Clear();
+                
+                
 
             }
             else
@@ -341,6 +445,8 @@ namespace TrabalhoInterface
                 Console.WriteLine("Motorista Inválido");
 
             }
+
+            MenuAtualizar(caminhao, motorista, viagem);
 
             return motoristaAtualizado;
         }
@@ -413,12 +519,14 @@ namespace TrabalhoInterface
 
         }
 
-        public static void RemoverMotorista(List<Motorista> motorista)
+        public static void RemoverMotorista(List<Viagem> viagem, List<Motorista> motorista, List<Caminhao> caminhao)
         {
             Console.WriteLine("Digite o ID do motorista que deseja remover");
             int idAux = Convert.ToInt32(Console.ReadLine());
 
             var motoristaRemovido = motorista.RemoveAll(s => s.Id == idAux);
+
+            MenuRemover(caminhao, motorista, viagem);
 
         }
 
